@@ -1,0 +1,59 @@
+name: Deploy GitHub Pages
+
+# Two triggers:
+#   1. Direct push to main      — manual site edits
+#   2. repository_dispatch with type "program-released"
+#      Fired by the adtrim/adtrim repo's release-trigger workflow on tag
+#      push. The client payload carries {"version": "v1.0.NNNN"}; we sed
+#      that version into index.html before deploying so the version chip
+#      and download URLs match the just-released installer.
+on:
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [program-released]
+  workflow_dispatch:
+
+# GitHub Pages requires these for the deploy-pages action.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Don't queue overlapping deploys; the latest one always wins.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Template version into index.html (release-triggered only)
+        if: github.event_name == 'repository_dispatch'
+        run: |
+          VERSION="${{ github.event.client_payload.version }}"
+          CLEAN="${VERSION#v}"
+          echo "Templating v$CLEAN into index.html"
+          # Narrow pattern: only matches v1.0.NNNN (4+ digit build number)
+          # so unrelated 'v1' in copy can't be accidentally rewritten.
+          sed -i "s/v1\.0\.[0-9]\{4,\}/v$CLEAN/g" index.html
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          # The whole repo IS the site (no build step). Upload root.
+          path: .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
