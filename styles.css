@@ -1061,29 +1061,11 @@ section { position: relative; }
 }
 
 /* DOWNLOAD */
-.download { padding: 100px 0;
-  /* swappable accent (default: teal, current look). Tweaks panel cycles this. */
-  --dl-accent:   #3FD9C8;
-  --dl-glow-a:   rgba(63,217,200,0.10);
-  --dl-glow-b:   rgba(139,92,246,0.10);
-}
-.download[data-accent="blue"] {
-  --dl-accent:   #6BA0FF;
-  --dl-glow-a:   rgba(107,160,255,0.16);
-  --dl-glow-b:   rgba(107,160,255,0.06);
-}
-.download[data-accent="amber"] {
-  --dl-accent:   #F5A524;
-  --dl-glow-a:   rgba(245,165,36,0.14);
-  --dl-glow-b:   rgba(139,92,246,0.07);
-}
-.download .section-eyebrow { color: var(--dl-accent); }
-.download .download-version { color: var(--dl-accent); }
-.download .link { color: var(--dl-accent); }
+.download { padding: 100px 0; }
 .download-card {
   background:
-    radial-gradient(800px 300px at 100% 0%, var(--dl-glow-b), transparent 60%),
-    radial-gradient(600px 300px at 0% 100%, var(--dl-glow-a), transparent 60%),
+    radial-gradient(800px 300px at 100% 0%, rgba(107,160,255,0.06), transparent 60%),
+    radial-gradient(600px 300px at 0% 100%, rgba(107,160,255,0.16), transparent 60%),
     linear-gradient(180deg, var(--surface) 0%, var(--bg-elev) 100%);
   border: 1px solid var(--hairline-2);
   border-radius: 18px;
@@ -1101,7 +1083,7 @@ section { position: relative; }
   margin: 14px 0 8px;
 }
 .download-version {
-  color: var(--dl-accent);
+  color: var(--blue);
   font-size: 0.7em;
   margin-left: 8px;
   vertical-align: middle;
@@ -1186,107 +1168,4 @@ section { position: relative; }
 @media (prefers-reduced-motion: reduce) {
   .progress-fill { animation: none; background: var(--blue); }
   .part-spinner { animation: none; }
-}
-
-/* ============================================================
-   TWEAKS PANEL
-   ============================================================ */
-.tweaks {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 288px;
-  z-index: 80;
-  background: linear-gradient(180deg, #16181D 0%, #101216 100%);
-  border: 1px solid var(--hairline-2);
-  border-radius: 12px;
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.04) inset,
-    0 24px 48px -20px rgba(0,0,0,0.8);
-  font-family: var(--font-sans);
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity .18s ease, transform .18s ease;
-}
-.tweaks.is-open { opacity: 1; transform: translateY(0); }
-.tweaks[hidden] { display: none; }
-
-.tweaks-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--hairline);
-}
-.tweaks-title {
-  font-size: 12px;
-  font-family: var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--fg-mute);
-}
-.tweaks-close {
-  width: 22px; height: 22px;
-  display: inline-flex;
-  align-items: center; justify-content: center;
-  background: transparent;
-  border: 0;
-  color: var(--fg-dim);
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background .15s, color .15s;
-}
-.tweaks-close:hover { background: rgba(255,255,255,0.05); color: var(--fg); }
-
-.tweaks-section { padding: 14px; }
-.tweaks-section-title {
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  margin: 0 0 4px;
-  color: var(--fg);
-}
-.tweaks-section-sub {
-  font-size: 12px;
-  color: var(--fg-dim);
-  margin: 0 0 12px;
-  line-height: 1.4;
-}
-
-.tweaks-swatches {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.tweaks-swatch {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--hairline);
-  border-radius: 8px;
-  color: var(--fg);
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 13px;
-  text-align: left;
-  transition: border-color .15s, background .15s;
-}
-.tweaks-swatch:hover { border-color: var(--hairline-3); background: rgba(255,255,255,0.04); }
-.tweaks-swatch.is-active {
-  border-color: rgba(107,160,255,0.55);
-  background: rgba(107,160,255,0.07);
-}
-.tweaks-swatch-color {
-  width: 18px; height: 18px;
-  border-radius: 5px;
-  flex-shrink: 0;
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset;
-}
-.tweaks-swatch-label { flex: 1; }
-.tweaks-swatch-note {
-  font-size: 11px;
-  color: var(--fg-dim);
-  margin-left: 4px;
 }
