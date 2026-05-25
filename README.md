@@ -8,14 +8,29 @@ directly in a browser to preview locally.
 
 ## How a deploy happens
 
-- **Push to `main`** in this repo → `.github/workflows/deploy.yml` runs
-  and publishes whatever is committed.
-- **Release tag in the program repo** (e.g. `v1.0.0040`) → that repo's
-  `release-trigger.yml` fires a `repository_dispatch` event here. Our
-  deploy workflow picks it up, `sed`-templates the new version string
-  into `index.html`, then publishes. This keeps the site's download link
-  and version chip in sync with the latest release without needing a
-  commit here.
+Every deploy resolves a real program version and `sed`-templates it
+into `index.html` before publishing, so the deployed site's version
+chip and download URLs are always in sync with the program's latest
+release — regardless of what triggered the deploy.
+
+The version is resolved from one of three places, in this order:
+
+- **`repository_dispatch` (`program-released`)** — fired by the
+  program repo's `release-trigger.yml` on tag push. The dispatch
+  payload carries the just-released version; we use it directly
+  (more authoritative than the Releases API, which can lag a few
+  seconds after publish).
+- **`workflow_dispatch` with a `version` input** — manual run from
+  the Actions tab. Use this to pin the deployed site to a specific
+  version on demand.
+- **Anything else** (push to `main`, blank `workflow_dispatch`) —
+  the workflow queries
+  `https://api.github.com/repos/adtrim/adtrim/releases/latest` and
+  templates that.
+
+The `v1.0.0000` strings in `index.html` are local-preview
+placeholders that should never reach the deployed site. If you ever
+see `v1.0.0000` on adtrim.github.io, the resolve step failed.
 
 ## Layout
 
