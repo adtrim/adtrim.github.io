@@ -1,17 +1,17 @@
 name: Deploy GitHub Pages
 
-# Three triggers:
-#   1. Direct push to main      — manual site edits. Deploys source as-is.
-#   2. repository_dispatch with type "program-released"
-#      Fired by the adtrim/adtrim repo's release-trigger workflow on tag
-#      push. The client payload carries {"version": "v1.0.NNNN"}; we sed
-#      that version into index.html before deploying so the version chip
-#      and download URLs match the just-released installer.
-#   3. Manual workflow_dispatch with optional `version` input
-#      Lets us re-template a known version on demand — e.g. to restore
-#      the deployed site to the latest program release after an unrelated
-#      push to main has overwritten it. Leave `version` blank to deploy
-#      source as-is, same as a push.
+# Three triggers, one outcome: the deployed index.html is always
+# templated to a real program version.
+#
+#   1. push to main             — site edits. Resolves the version by
+#                                 querying adtrim/adtrim's latest release.
+#   2. repository_dispatch      — fired by adtrim/adtrim on release. Uses
+#      type: program-released     the version from the dispatch payload
+#                                 (more authoritative than the API, which
+#                                 can lag a few seconds after publish).
+#   3. workflow_dispatch        — manual run. Uses the `version` input if
+#                                 supplied, otherwise resolves from the
+#                                 program repo's latest release.
 on:
   push:
     branches: [main]
@@ -20,7 +20,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "Version to template into index.html (e.g. v1.0.0040). Leave blank to deploy source as-is."
+        description: "Version to template into index.html (e.g. v1.0.0040). Leave blank to resolve from adtrim/adtrim's latest release."
         required: false
         type: string
         default: ""
@@ -42,21 +42,51 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Template version into index.html
-        # Runs on program-released dispatches (always) and on manual
-        # workflow_dispatch runs that supplied a `version` input.
-        if: >-
-          github.event_name == 'repository_dispatch' ||
-          (github.event_name == 'workflow_dispatch' && inputs.version != '')
+      - name: Resolve version to template
+        id: version
         env:
+          EVENT_NAME: ${{ github.event_name }}
           DISPATCH_VERSION: ${{ github.event.client_payload.version }}
           INPUT_VERSION: ${{ inputs.version }}
+          # Workflow token bumps the cross-repo API rate limit from
+          # 60/hr (anon) to 1000/hr — plenty for deploys.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
-            VERSION="$DISPATCH_VERSION"
-          else
-            VERSION="$INPUT_VERSION"
+          set -euo pipefail
+          case "$EVENT_NAME" in
+            repository_dispatch)
+              VERSION="$DISPATCH_VERSION"
+              SOURCE="dispatch payload"
+              ;;
+            workflow_dispatch)
+              if [ -n "$INPUT_VERSION" ]; then
+                VERSION="$INPUT_VERSION"
+                SOURCE="workflow_dispatch input"
+              else
+                VERSION=$(curl -fsSL -H "Authorization: Bearer $GH_TOKEN" \
+                  https://api.github.com/repos/adtrim/adtrim/releases/latest \
+                  | jq -r .tag_name)
+                SOURCE="adtrim/adtrim latest release"
+              fi
+              ;;
+            *)
+              VERSION=$(curl -fsSL -H "Authorization: Bearer $GH_TOKEN" \
+                https://api.github.com/repos/adtrim/adtrim/releases/latest \
+                | jq -r .tag_name)
+              SOURCE="adtrim/adtrim latest release"
+              ;;
+          esac
+          if [ -z "$VERSION" ] || [ "$VERSION" = "null" ]; then
+            echo "Could not resolve a version (source: $SOURCE). Aborting." >&2
+            exit 1
           fi
+          echo "Resolved $VERSION from $SOURCE"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Template version into index.html
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
           CLEAN="${VERSION#v}"
           echo "Templating v$CLEAN into index.html"
           # Narrow pattern: only matches v1.0.NNNN (4+ digit build number)
