@@ -1,18 +1,29 @@
 name: Deploy GitHub Pages
 
-# Two triggers:
-#   1. Direct push to main      — manual site edits
+# Three triggers:
+#   1. Direct push to main      — manual site edits. Deploys source as-is.
 #   2. repository_dispatch with type "program-released"
 #      Fired by the adtrim/adtrim repo's release-trigger workflow on tag
 #      push. The client payload carries {"version": "v1.0.NNNN"}; we sed
 #      that version into index.html before deploying so the version chip
 #      and download URLs match the just-released installer.
+#   3. Manual workflow_dispatch with optional `version` input
+#      Lets us re-template a known version on demand — e.g. to restore
+#      the deployed site to the latest program release after an unrelated
+#      push to main has overwritten it. Leave `version` blank to deploy
+#      source as-is, same as a push.
 on:
   push:
     branches: [main]
   repository_dispatch:
     types: [program-released]
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to template into index.html (e.g. v1.0.0040). Leave blank to deploy source as-is."
+        required: false
+        type: string
+        default: ""
 
 # GitHub Pages requires these for the deploy-pages action.
 permissions:
@@ -31,10 +42,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Template version into index.html (release-triggered only)
-        if: github.event_name == 'repository_dispatch'
+      - name: Template version into index.html
+        # Runs on program-released dispatches (always) and on manual
+        # workflow_dispatch runs that supplied a `version` input.
+        if: >-
+          github.event_name == 'repository_dispatch' ||
+          (github.event_name == 'workflow_dispatch' && inputs.version != '')
+        env:
+          DISPATCH_VERSION: ${{ github.event.client_payload.version }}
+          INPUT_VERSION: ${{ inputs.version }}
         run: |
-          VERSION="${{ github.event.client_payload.version }}"
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            VERSION="$DISPATCH_VERSION"
+          else
+            VERSION="$INPUT_VERSION"
+          fi
           CLEAN="${VERSION#v}"
           echo "Templating v$CLEAN into index.html"
           # Narrow pattern: only matches v1.0.NNNN (4+ digit build number)
