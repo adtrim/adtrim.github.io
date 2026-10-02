@@ -171,8 +171,8 @@
           <div class="feature-icon" aria-hidden="true">
             <svg viewBox="0 0 28 28" width="22" height="22"><path d="M4 8h6l2-2h4l2 2h6v14H4z" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round"/><circle cx="14" cy="15" r="4" stroke="currentColor" stroke-width="1.4" fill="none"/><path d="M14 11v0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           </div>
-          <h3>Auto-detect commercials</h3>
-          <p>Imports Comskip <span class="mono">.edl</span> / <span class="mono">.txt</span> and ships its own audio-silence + black-frame detector for raw recordings.</p>
+          <h3>Auto-refine split boundaries</h3>
+          <p>Use FFmpeg-backed silence, black-frame, and scene-change signals to snap rough chapter boundaries onto cleaner cut frames.</p>
         </div>
 
         <div class="feature">
@@ -180,7 +180,7 @@
             <svg viewBox="0 0 28 28" width="22" height="22"><path d="M4 12h7l2-3 2 6 2-3h7" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="6" width="22" height="16" rx="2" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
           </div>
           <h3>One-click merged export</h3>
-          <p>FFmpeg stream-copy where it can, re-encodes only the parts that cross cuts. A 30-minute episode lands in under three minutes.</p>
+          <p>Encodes each kept part with libx264, then concat-copies the final MP4 with clean <span class="mono">Part 1</span>, <span class="mono">Part 2</span> chapters.</p>
         </div>
 
         <div class="feature">
@@ -332,12 +332,12 @@
           <span class="built-role">Cut &amp; concat</span>
         </li>
         <li>
-          <span class="built-name">WiX</span>
+          <span class="built-name">NSIS</span>
           <span class="built-role">Installer</span>
         </li>
         <li>
-          <span class="built-name">Comskip</span>
-          <span class="built-role">Ad detection (optional)</span>
+          <span class="built-name">Comskip chapters</span>
+          <span class="built-role">Import source</span>
         </li>
       </ul>
     </div>
@@ -350,7 +350,7 @@
         <div class="download-left">
           <span class="section-eyebrow">Download</span>
           <h2 class="download-title">AdTrim <span class="mono download-version">v1.0.0000</span></h2>
-          <p class="download-sub">Latest release. Windows installer (.exe). No bundled extras, no telemetry.</p>
+          <p class="download-sub">Latest release. Windows installer (.exe). MP4 editing today; direct TS support is planned.</p>
 
           <div class="download-cta">
             <a class="btn btn-primary btn-lg" href="https://github.com/adtrim/adtrim/releases/download/v1.0.0000/AdTrim-Setup-v1.0.0000.exe">
