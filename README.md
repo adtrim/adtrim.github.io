@@ -16,7 +16,7 @@ release — regardless of what triggered the deploy.
 The version is resolved from one of three places, in this order:
 
 - **`repository_dispatch` (`program-released`)** — fired by the
-  program repo's `release-trigger.yml` on tag push. The dispatch
+  program repo's `release-trigger.yml` when a release is published. The dispatch
   payload carries the just-released version; we use it directly
   (more authoritative than the Releases API, which can lag a few
   seconds after publish).
