@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "revision": 1,
+  "publishedAt": "2026-10-03T06:55:56.1572905+00:00",
+  "expiresAt": "2026-12-02T06:55:56.1613735+00:00",
+  "latestVersion": "1.1.0",
+  "summary": "AdTrim 1.1.0 includes independent recording windows, integrated export screens, hardware encoding, and improvements to reviewing cuts.",
+  "advisories": []
+}
