@@ -96,8 +96,8 @@
       <!-- Product screenshot -->
       <figure class="hero-shot">
         <img src="assets/screenshots/timeline-hero.png"
-             alt="AdTrim showing a recorded TV episode with confirmed split markers and chapter chips across the timeline."
-             width="1280" height="832"
+             alt="AdTrim showing adjacent Big Buck Bunny frames, three excluded sections, mixed split statuses, and a selected split's editing controls."
+             width="1440" height="900"
              loading="eager" decoding="async" />
       </figure>
     </div>
@@ -143,6 +143,41 @@
   </section>
 
   <!-- FEATURES -->
+  <section class="walkthrough" id="how-it-works">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-eyebrow">How it works</span>
+        <h2 class="section-title">Three steps from recording to ready to watch.</h2>
+      </div>
+      <div class="walkthrough-grid">
+        <figure>
+          <a class="screenshot-link" href="assets/screenshots/walkthrough-open.png" data-caption="1. Open your recording" aria-label="Enlarge screenshot: open your recording">
+            <img src="assets/screenshots/walkthrough-open.png" alt="AdTrim with Big Buck Bunny loaded and chapter markers on the timeline." loading="lazy" width="1440" height="900" />
+          </a>
+          <figcaption><h3>1. Open your recording</h3><p>Open an MP4. Existing chapters provide starting points for your cuts.</p></figcaption>
+        </figure>
+        <figure>
+          <a class="screenshot-link" href="assets/screenshots/walkthrough-edit.png" data-caption="2. Mark what to remove" aria-label="Enlarge screenshot: mark what to remove">
+            <img src="assets/screenshots/walkthrough-edit.png" alt="A selected split with adjacent video frames and an excluded timeline section." loading="lazy" width="1440" height="900" />
+          </a>
+          <figcaption><h3>2. Mark what to remove</h3><p>Fine-tune the split markers, exclude unwanted sections, and preview what stays.</p></figcaption>
+        </figure>
+        <figure>
+          <a class="screenshot-link" href="assets/screenshots/walkthrough-export.png" data-caption="3. Keep the show" aria-label="Enlarge screenshot: keep the show">
+            <img src="assets/screenshots/walkthrough-export.png" alt="AdTrim's export screen with a progress ring, kept parts, and an AdTrim-labeled output filename." loading="lazy" width="1440" height="900" />
+          </a>
+          <figcaption><h3>3. Keep the show</h3><p>Export a separate <span class="mono">[AdTrim]</span> copy. Your original recording stays untouched.</p></figcaption>
+        </figure>
+      </div>
+      <p class="screenshot-credit">Click a screenshot to enlarge. Sample footage: <a href="https://peach.blender.org/about/" target="_blank" rel="noopener">Big Buck Bunny</a>, © 2008 Blender Foundation, <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>. Example edits and export progress shown.</p>
+    </div>
+  </section>
+
+  <dialog class="screenshot-dialog" aria-labelledby="screenshot-title">
+    <div class="screenshot-dialog-head"><h2 id="screenshot-title">Screenshot</h2><button type="button" class="screenshot-close" aria-label="Close screenshot">Close</button></div>
+    <img alt="" />
+  </dialog>
+
   <section class="features" id="features">
     <div class="container">
       <div class="section-head">
@@ -180,23 +215,23 @@
             <svg viewBox="0 0 28 28" width="22" height="22"><path d="M4 12h7l2-3 2 6 2-3h7" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="6" width="22" height="16" rx="2" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
           </div>
           <h3>One-click merged export</h3>
-          <p>Encodes each kept part with libx264, then concat-copies the final MP4 with clean <span class="mono">Part 1</span>, <span class="mono">Part 2</span> chapters.</p>
+          <p>Export the parts you keep as one MP4, with your segment names preserved as chapters. Use supported NVIDIA, Intel, or AMD hardware encoding, or choose software encoding.</p>
         </div>
 
         <div class="feature">
           <div class="feature-icon" aria-hidden="true">
             <svg viewBox="0 0 28 28" width="22" height="22"><rect x="3" y="7" width="22" height="14" rx="2" stroke="currentColor" stroke-width="1.4" fill="none"/><path d="M7 11h1M11 11h1M15 11h1M19 11h1M7 14h1M11 14h1M15 14h1M19 14h1M9 17h10" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
           </div>
-          <h3>Keyboard-driven</h3>
-          <p>Every action has a shortcut. <kbd>S</kbd> splits, <kbd>K</kbd> toggles keep, <kbd>R</kbd> refines, <kbd>E</kbd> exports. No mouse required.</p>
+          <h3>Keyboard-first editing</h3>
+          <p><kbd>←</kbd> <kbd>→</kbd> seek · <kbd>[</kbd> <kbd>]</kbd> step 1 second<br><kbd>,</kbd> <kbd>.</kbd> step frame by frame<br><kbd>S</kbd> split · <kbd>K</kbd> toggle keep<br><kbd>R</kbd> refine · <kbd>E</kbd> export</p>
         </div>
 
         <div class="feature">
           <div class="feature-icon" aria-hidden="true">
             <svg viewBox="0 0 28 28" width="22" height="22"><path d="M14 4v6M10 7l4-3 4 3M14 24v-6M10 21l4 3 4-3M4 14h6M7 10l-3 4 3 4M24 14h-6M21 10l3 4-3 4" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <h3>Plex / Jellyfin friendly</h3>
-          <p>Outputs match the source's naming and folder structure. Drop the file back where it came from and your library scanner just picks it up.</p>
+          <h3>Made for Plex &amp; Jellyfin libraries</h3>
+          <p>Keep the show, season, and episode information from your recording's filename. Trimmed MP4s get an <span class="mono">[AdTrim]</span> label so you can tell them apart from the original in your library folder.</p>
         </div>
       </div>
     </div>
@@ -210,13 +245,23 @@
         <h2 class="section-title">Source minus commercials, equals the file you actually wanted.</h2>
       </div>
 
-      <div class="export-card">
-        <div class="export-card-head">
-          <span class="export-card-dot" aria-hidden="true"></span>
-          <span class="export-card-title">Exporting merged MP4</span>
-          <span class="export-card-sub">Cutting 4 excluded segments and stitching the remaining 5 parts.</span>
+      <div class="export-card" role="img" aria-label="Export screen example: 22 percent complete, with a progress summary on the left and export details on the right.">
+        <div class="export-summary">
+          <span class="export-heading">EXPORTING YOUR VIDEO</span>
+          <h3>Drama Series · Season 2, Episode 7</h3>
+          <p class="export-subtitle">Midpoint</p>
+          <div class="export-dial" aria-hidden="true">
+            <svg viewBox="0 0 184 184"><circle class="dial-track" cx="92" cy="92" r="84"/><circle class="dial-fill" cx="92" cy="92" r="84" pathLength="100" stroke-dasharray="22 100"/></svg>
+            <div><strong>22%</strong><span>exported</span></div>
+          </div>
+          <p class="export-remaining">~02:27 remaining</p>
+          <p class="export-elapsed">Elapsed 00:42</p>
+          <div class="export-current"><span class="export-current-dot"></span><div><strong>Encoding Part 3</strong><span>Encoding part 3/5 · 03:11.02 → 11:44.47</span></div><span>37%</span></div>
+          <p class="export-counts">5 parts kept · 4 removed</p>
+          <div class="export-actions"><span class="export-cancel">Cancel export</span></div>
         </div>
-
+        <div class="export-details">
+          <h3>Export details</h3>
         <div class="export-card-meta">
           <div>
             <span class="meta-label">Saving to</span>
@@ -224,7 +269,11 @@
           </div>
           <div>
             <span class="meta-label">Filename</span>
-            <span class="meta-value mono">Drama Series (2024) - s02e07 - Midpoint-ADT-178.mp4</span>
+            <span class="meta-value mono">Drama Series (2024) - s02e07 - Midpoint [AdTrim].mp4</span>
+          </div>
+          <div>
+            <span class="meta-label">Encoder</span>
+            <span class="meta-value mono">Graphics card · AMD Radeon RX 9060 XT</span>
           </div>
         </div>
 
@@ -233,33 +282,13 @@
             <span class="total-label">SOURCE</span>
             <span class="total-value mono">29:57.061</span>
           </div>
-          <div class="total-arrow" aria-hidden="true">
-            <svg viewBox="0 0 32 12" width="32" height="12"><path d="M2 6h26M22 2l6 4-6 4" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
           <div class="total total-amber">
             <span class="total-label">EXCLUDED</span>
             <span class="total-value mono">−10:30.329</span>
           </div>
-          <div class="total-arrow" aria-hidden="true">
-            <svg viewBox="0 0 32 12" width="32" height="12"><path d="M2 6h26M22 2l6 4-6 4" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
           <div class="total total-teal">
             <span class="total-label">FINAL</span>
             <span class="total-value mono">19:26.732</span>
-          </div>
-        </div>
-
-        <div class="export-progress">
-          <div class="progress-head">
-            <span>Encoding part <span class="mono">3/5</span> · <span class="mono">03:11.02 → 11:44.47</span></span>
-            <span class="progress-pct mono">22%</span>
-          </div>
-          <div class="progress-track">
-            <div class="progress-fill" style="width:22%"></div>
-          </div>
-          <div class="progress-foot">
-            <span>Elapsed <span class="mono">00:42</span></span>
-            <span class="progress-foot-dim">~<span class="mono">02:27</span> remaining</span>
           </div>
         </div>
 
@@ -302,11 +331,12 @@
           <div class="part part-queued">
             <span class="part-empty" aria-hidden="true"></span>
             <span class="part-name">Concat</span>
-            <span class="part-range mono">Stitch parts → Drama Series (2024) - s02e07…</span>
+            <span class="part-range mono">Stitch parts</span>
             <span class="part-dur mono"></span>
             <span class="part-status">queued</span>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </section>
@@ -343,6 +373,23 @@
     </div>
   </section>
 
+  <!-- PRIVACY -->
+  <section class="privacy" id="privacy" aria-labelledby="privacy-title">
+    <div class="container">
+      <span class="section-eyebrow">Privacy</span>
+      <h2 class="section-title" id="privacy-title">Your recordings stay private.</h2>
+        <p>AdTrim does not collect usage analytics or upload your recordings, filenames, or hardware information. Update checks download release information from GitHub Pages and compare versions on your computer. GitHub Pages logs IP addresses for security.</p>
+        <p>Automatic checks are on by default. You can turn them off during setup or under <strong>Help → Automatically check for updates</strong>. This also stops automatic security-update alerts. <strong>Help → Check for updates</strong> remains available whenever you choose to use it.</p>
+        <p><a class="nav-cta" href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection" rel="noopener" target="_blank">
+      <svg class="nav-cta-logo" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+      </svg>
+      GitHub Pages data collection
+      <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 2h6v6M2 8l6-6" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
+    </a></p>
+    </div>
+  </section>
+
   <!-- DOWNLOAD -->
   <section class="download" id="download">
     <div class="container">
@@ -350,7 +397,7 @@
         <div class="download-left">
           <span class="section-eyebrow">Download</span>
           <h2 class="download-title">AdTrim <span class="mono download-version">v1.0.0000</span></h2>
-          <p class="download-sub">Latest release. Windows installer (.exe). MP4 editing today; direct TS support is planned.</p>
+          <p class="download-sub">Free and open source. No ads, no bundled junk, no telemetry, and no account required. Your videos stay on your computer.</p>
 
           <div class="download-cta">
             <a class="btn btn-primary btn-lg" href="https://github.com/adtrim/adtrim/releases/download/v1.0.0000/AdTrim-Setup-v1.0.0000.exe">

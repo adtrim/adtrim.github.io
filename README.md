@@ -42,9 +42,29 @@ see `v1.0.0000` on adtrim.github.io, the resolve step failed.
 
 ## Updating the screenshot
 
-Capture a fresh PNG of the running app, drop it into
-`assets/screenshots/timeline-hero.png` (same dimensions, same filename),
-and commit. Pages redeploys on push.
+With the desktop source checked out beside this repository as `program`, run from
+this repository on Windows:
+
+```powershell
+dotnet run --project ../program/tools/AdTrim.Smoke -c Release -- --website "<path-to-bbb_sunflower_2160p_60fps_normal.mp4>" assets/screenshots
+```
+
+The capture mode copies the supplied Big Buck Bunny recording into a disposable
+workspace, uses isolated settings with automatic update checks off, and captures
+the open, edit, and export screens at 1440 by 900. It checks the original file's
+SHA-256 before and after capture and removes the disposable copy. No sidecar is
+created beside the original. Native player frames are captured through mpv and
+composited into their actual WPF host bounds. The export screen uses fixed example
+progress, not a benchmark or a running encode.
+
+Review all three `walkthrough-*.png` images and `timeline-hero.png` before committing.
+The editor frames at 2:59.700 show adjacent-frame head and ear movement. The hero
+shows three excluded sections, mixed marker statuses, and a selected split with
+its editing actions. Keep the Big Buck Bunny attribution and CC BY 3.0 link with the
+walkthrough. The footage is copyright 2008 Blender Foundation:
+https://peach.blender.org/about/.
+
+Screenshot refreshes do not authorize pushing or publishing the site.
 
 ## License
 

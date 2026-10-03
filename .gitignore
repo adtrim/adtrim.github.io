@@ -9,4 +9,6 @@ Thumbs.db
 .vscode/
 .idea/
 
-# AI tool scaffolding
+# Local tool files
+.claude/
+CLAUDE.md
