@@ -1,0 +1,20 @@
+name: Check update feed expiration
+on:
+  schedule:
+    - cron: '0 12 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Verify feed and renewal deadline
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          Invoke-WebRequest -Uri https://adtrim.github.io/updates.json -OutFile updates.json
+          Invoke-WebRequest -Uri https://adtrim.github.io/updates.json.sig -OutFile updates.json.sig
+          ./.github/scripts/verify-updates.ps1 -MinimumDaysRemaining 14
