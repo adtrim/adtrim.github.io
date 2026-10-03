@@ -10,5 +10,7 @@ Thumbs.db
 .idea/
 
 # Local tool files
+_site/
+__pycache__/
 .claude/
 CLAUDE.md

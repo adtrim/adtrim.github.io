@@ -6,6 +6,20 @@
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const exportPreview = document.querySelector('.export-preview');
+  if (exportPreview && typeof ResizeObserver === 'function') {
+    const card = exportPreview.querySelector('.export-card');
+    card.style.width = '1112px';
+    const resizePreview = () => {
+      const scale = Math.min(1, exportPreview.clientWidth / 1112);
+      card.style.transform = `scale(${scale})`;
+      exportPreview.style.height = `${card.offsetHeight * scale}px`;
+    };
+    new ResizeObserver(resizePreview).observe(exportPreview);
+    document.fonts.ready.then(resizePreview);
+    resizePreview();
+  }
+
   const viewer = document.querySelector('.screenshot-dialog');
   if (viewer && typeof viewer.showModal === 'function') {
     let opener;
