@@ -3,7 +3,7 @@
 Source for the [AdTrim](https://github.com/adtrim/adtrim) project
 website, published at <https://adtrim.github.io/>.
 
-Static one-page site — plain HTML/CSS/JS, no build step. Open `index.html`
+Static one-page site — plain HTML/CSS/JS. Open `index.html`
 directly in a browser to preview locally.
 
 ## How a deploy happens
@@ -33,6 +33,16 @@ placeholders that should never reach the deployed site. If you ever
 see `v1.0.0000` on adtrim.github.io, the resolve step failed.
 
 ## Layout
+
+Deployment stages the public files in `_site/` with `.github/scripts/build-site.py`.
+CSS, JavaScript, images, and fonts receive filenames containing a hash of their
+contents. Changed assets get new URLs; unchanged assets stay cacheable. Screenshot
+viewer links use the same hashed images as their thumbnails. The signed update
+feed keeps its stable URLs and exact bytes. No browser storage or service worker
+is involved. A browser still needs to refresh the HTML to discover a deployment.
+
+Run `python .github/scripts/build-site.py` from a clean checkout to inspect the
+staged output. The script refuses to overwrite an existing output directory.
 
 - `index.html`, `styles.css`, `app.js` — the page
 - `assets/icon-512.png` — app icon used in nav + favicon + Open Graph

@@ -557,7 +557,9 @@ main > section:not(.hero) { padding: 80px 0; }
 @media (max-width: 880px) { .walkthrough-grid { grid-template-columns: 1fr; gap: 32px; } }
 
 
+.export-preview { max-width: 1112px; margin-inline: auto; overflow: hidden; }
 .export-card {
+  transform-origin: top left;
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
   gap: 24px;
@@ -610,22 +612,6 @@ main > section:not(.hero) { padding: 80px 0; }
 .part-empty { border: 1px solid var(--hairline-3); }
 .part-spinner { border: 1.5px solid var(--surface-3); border-top-color: var(--blue); animation: spin 0.9s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
-@media (max-width: 1000px) {
-  .export-card { grid-template-columns: 1fr; }
-  .export-summary { max-width: 400px; width: 100%; margin-inline: auto; }
-}
-@media (max-width: 600px) {
-  .export-card { padding: 16px; gap: 24px; }
-  .export-details { padding: 14px; }
-  .export-card-meta { grid-template-columns: 1fr; gap: 4px; }
-  .meta-value { margin-bottom: 8px; }
-  .export-totals { grid-template-columns: 1fr; gap: 12px; }
-  .total + .total { border-left: 0; }
-  .part { grid-template-columns: 14px 1fr auto; }
-  .part-range { grid-column: 2; grid-row: 2; }
-  .part-status { grid-column: 3; grid-row: 1; }
-  .part-dur { display: none; }
-}
 
 /* BUILT */
 .built { border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
