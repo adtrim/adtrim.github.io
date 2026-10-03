@@ -83,6 +83,27 @@ jobs:
           echo "Resolved $VERSION from $SOURCE"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
+      - name: Fetch signed announcement from release
+        shell: pwsh
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if ($env:VERSION -cnotmatch '^v(0|[1-9][0-9]{0,4})\.(0|[1-9][0-9]{0,4})\.(0|[1-9][0-9]{0,4})$') { throw 'Invalid stable release version.' }
+          $release = Invoke-RestMethod -Uri ('https://api.github.com/repos/adtrim/adtrim/releases/tags/' + $env:VERSION) -Headers @{ Authorization = 'Bearer ' + $env:GITHUB_TOKEN }
+          if ($release.draft -or $release.prerelease) { throw 'Only published stable releases can be announced.' }
+          $assets = @($release.assets | Where-Object { $_.name -in @('updates.json', 'updates.json.sig') })
+          if ($assets.Count -eq 2) {
+            foreach ($asset in $assets) {
+              $url = 'https://github.com/adtrim/adtrim/releases/download/' + $env:VERSION + '/' + $asset.name
+              Invoke-WebRequest -Uri $url -OutFile $asset.name
+            }
+          } elseif ([version]$env:VERSION.Substring(1) -gt [version]'1.1.0') { throw 'Release is missing its signed update announcement.' }
+          ./.github/scripts/verify-updates.ps1
+          $feed = Get-Content updates.json -Raw | ConvertFrom-Json
+          if ('v' + $feed.latestVersion -cne $env:VERSION) { throw 'Announcement version does not match the published release.' }
+
       - name: Template version into index.html
         env:
           VERSION: ${{ steps.version.outputs.version }}
