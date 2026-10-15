@@ -3,13 +3,15 @@
 Source for the [AdTrim](https://github.com/adtrim/adtrim) project
 website, published at <https://adtrim.github.io/>.
 
-Static one-page site — plain HTML/CSS/JS. Open `index.html`
-directly in a browser to preview locally.
+Static site, plain HTML/CSS/JS: the home page and a What's new page.
+Preview it with a local server from the repository root, for example
+`python -m http.server 8767 --bind 127.0.0.1`, because the What's new page
+uses site-root paths.
 
 ## How a deploy happens
 
 Every deploy resolves a real program version and `sed`-templates it
-into `index.html` before publishing, so the deployed site's version
+into `index.html` and `whats-new/index.html` before publishing, so the deployed site's version
 chip and download URLs are always in sync with the program's latest
 release — regardless of what triggered the deploy.
 
@@ -28,7 +30,7 @@ The version is resolved from one of three places, in this order:
   `https://api.github.com/repos/adtrim/adtrim/releases/latest` and
   templates that.
 
-The `v1.0.0000` strings in `index.html` are local-preview
+The `v1.0.0000` strings in both pages are local-preview
 placeholders that should never reach the deployed site. If you ever
 see `v1.0.0000` on adtrim.github.io, the resolve step failed.
 
@@ -44,11 +46,16 @@ is involved. A browser still needs to refresh the HTML to discover a deployment.
 Run `python .github/scripts/build-site.py` from a clean checkout to inspect the
 staged output. The script refuses to overwrite an existing output directory.
 
-- `index.html`, `styles.css`, `app.js` — the page
-- `assets/icon-512.png` — app icon used in nav + favicon + Open Graph
-- `assets/screenshots/` — UI screenshots used on the page (versioned
+- `index.html`, `styles.css`: the home page and the shared stylesheet
+- `whats-new/index.html`, `whats-new.js`: the What's new page. AdTrim 2.0 and
+  later open it as `whats-new/#from=<installed>&to=<new>`; the script shows the
+  releases in between. The versions stay in the URL fragment, which browsers
+  do not send to the server. Add an entry for each release with user-facing
+  changes; releases without one show "Fixes and security updates".
+- `assets/icon-512.png`: app icon used in the nav, favicon and Open Graph
+- `assets/screenshots/`: UI screenshots used on the pages (versioned
   here, not in the program repo)
-- `assets/fonts/` — self-hosted Inter + JetBrains Mono (latin subset)
+- `assets/fonts/`: self-hosted Inter and JetBrains Mono (latin subset)
 
 ## Updating the screenshot
 
@@ -61,17 +68,19 @@ dotnet run --project ../program/tools/AdTrim.Smoke -c Release -- --website "<pat
 
 The capture mode copies the supplied Big Buck Bunny recording into a disposable
 workspace, uses isolated settings with automatic update checks off, and captures
-the open, edit, and export screens at 1440 by 900. It checks the original file's
+the open, edit, and export screens at 1440 by 900, after the thumbnail strip and
+waveform have finished loading. It also saves 2x close-ups: `timeline.png`,
+`timeline-detail.png` (zoomed in on the second excluded scene) and
+`analyze-toolbar.png`. It checks the original file's
 SHA-256 before and after capture and removes the disposable copy. No sidecar is
 created beside the original. Native player frames are captured through mpv and
 composited into their actual WPF host bounds. The export screen uses fixed example
 progress, not a benchmark or a running encode.
 
-Review all three `walkthrough-*.png` images and `timeline-hero.png` before committing.
+Review every captured image before committing.
 The editor frames at 2:59.700 show adjacent-frame head and ear movement. The hero
 shows three excluded sections, mixed marker statuses, and a selected split with
-its editing actions. Keep the Big Buck Bunny attribution and CC BY 3.0 link with the
-walkthrough. The footage is copyright 2008 Blender Foundation:
+its editing actions. Keep the Big Buck Bunny attribution and CC BY 3.0 link on both pages. The footage is copyright 2008 Blender Foundation:
 https://peach.blender.org/about/.
 
 Screenshot refreshes do not authorize pushing or publishing the site.

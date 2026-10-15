@@ -27,12 +27,20 @@ def build(root, output):
     css = re.sub(r"url\((['\"]?)([^)'\"]+)\1\)",
                  lambda m: f"url({m[1]}{urls.get(m[2], m[2])}{m[1]})", css)
     asset("styles.css", css.encode("utf-8"))
-    asset("app.js", (root / "app.js").read_bytes())
+    asset("whats-new.js", (root / "whats-new.js").read_bytes())
 
-    html = (root / "index.html").read_text(encoding="utf-8")
-    html = re.sub(r'(\b(?:src|href|content)=")([^"]+)(")',
-                  lambda m: m[1] + urls.get(m[2], m[2]) + m[3], html)
-    (output / "index.html").write_text(html, encoding="utf-8")
+    # Pages refer to assets relative to the site root, with or without a leading slash.
+    def hashed(value):
+        rooted = value.startswith("/")
+        name = urls.get(value.lstrip("/"))
+        return value if name is None else ("/" if rooted else "") + name
+
+    for page in ("index.html", "whats-new/index.html"):
+        html = (root / page).read_text(encoding="utf-8")
+        html = re.sub(r'(\b(?:src|href|content)=")([^"]+)(")',
+                      lambda m: m[1] + hashed(m[2]) + m[3], html)
+        (output / page).parent.mkdir(parents=True, exist_ok=True)
+        (output / page).write_text(html, encoding="utf-8")
     # Signed announcements must retain their exact bytes and stable URLs.
     for name in ("updates.json", "updates.json.sig", "update-public-key.pem"):
         shutil.copyfile(root / name, output / name)

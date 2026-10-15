@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>What's new in AdTrim</title>
+<meta name="description" content="What changed in each AdTrim release, and a download link for the latest version." />
+<link rel="icon" type="image/png" href="/assets/icon-512.png" />
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body data-latest="v1.0.0000">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/" aria-label="AdTrim home">
+      <img class="brand-icon" src="/assets/icon-512.png" alt="" width="24" height="24" />
+      <span class="brand-word">AdTrim</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/#why">Why</a>
+      <a href="/#how-it-works">How it works</a>
+      <a href="/#features">Features</a>
+      <a href="#releases" aria-current="page">What's new</a>
+      <a href="/#download">Download</a>
+    </nav>
+    <a class="nav-cta" href="https://github.com/adtrim/adtrim" rel="noopener" target="_blank">GitHub</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="as-open">
+    <div class="container">
+      <p class="as-from" id="as-from" hidden></p>
+      <h1 class="as-title" id="as-title">What's new in AdTrim</h1>
+      <p class="as-lede" id="as-lede">Highlights from each release, newest first. Small fixes are listed in the release notes on GitHub.</p>
+      <div class="as-actions">
+        <a class="as-download" id="as-download" href="https://github.com/adtrim/adtrim/releases/download/v1.0.0000/AdTrim-Setup-v1.0.0000.exe">Download AdTrim v1.0.0000 for Windows</a>
+        <a class="as-notes" id="as-notes" href="https://github.com/adtrim/adtrim/releases/tag/v1.0.0000" rel="noopener" target="_blank">Release notes on GitHub</a>
+      </div>
+      <p class="as-fine">Windows 10 and 11. To update, close AdTrim, run the installer and keep your folder. Projects and settings stay as they are.</p>
+      <p class="as-error" id="as-error" role="status" hidden>This link didn't include a version we could read, so the page shows every highlight.</p>
+    </div>
+  </section>
+
+  <section class="as-releases" id="releases" aria-label="Releases">
+    <div class="container">
+      <ol class="as-rail">
+
+        <li class="as-release as-maintenance" id="as-maintenance" hidden>
+          <span class="as-marker" aria-hidden="true"></span>
+          <p class="as-version">Fixes and security updates</p>
+          <h2>Fixes and security updates</h2>
+          <p>Nothing changes in how you use AdTrim. The release notes on GitHub list each fix.</p>
+        </li>
+
+
+        <li class="as-release" data-version="2.0.0">
+          <span class="as-marker" aria-hidden="true"></span>
+          <p class="as-version">2.0.0 · Major release</p>
+          <h2>Thumbnails, a waveform, and ad break suggestions</h2>
+          <p>The timeline now shows what's in the recording, not just where your markers are. You can see the show, see where it goes quiet, and ask AdTrim to find the breaks.</p>
+
+          <figure class="as-shot">
+            <img src="/assets/screenshots/timeline.png" width="2848" height="378" loading="lazy"
+                 alt="The AdTrim 2.0 timeline: markers along the top, a strip of frames with named sections and three excluded scenes, and a waveform underneath with silences marked in amber." />
+            <ul class="as-legend">
+              <li><span>Markers</span> on top, as before</li>
+              <li><span>Thumbnails</span> of the recording, more as you zoom in</li>
+              <li><span>Waveform</span> with silences in amber</li>
+            </ul>
+            <figcaption>Sample footage: Big Buck Bunny. The three crosshatched sections are marked for removal.</figcaption>
+          </figure>
+
+          <div class="as-pair">
+            <div>
+              <h3>Silences you can see</h3>
+              <p>Commercial breaks often begin and end with a beat of silence. The waveform marks those moments in amber, measured against each recording's own quietest sound, so a quiet drama and a loud game show both get useful marks.</p>
+            </div>
+            <img src="/assets/screenshots/timeline-detail.png" width="1192" height="212" loading="lazy"
+                 alt="Close-up of the frames and waveform around an excluded scene, with amber marks at the silences just after it ends." />
+          </div>
+
+          <div class="as-text">
+            <h3>Ad break suggestions</h3>
+            <p><strong>Analyze ad breaks</strong> looks at the picture and the sound and adds markers where it finds likely breaks. It never excludes anything on its own. Markers it isn't sure about are red, so you know which ones to check first.</p>
+            <img class="as-inline-shot" src="/assets/screenshots/analyze-toolbar.png" width="934" height="82" loading="lazy"
+                 alt="The Analyze ad breaks button between the marker menu and Delete all markings." />
+            <p>It's new. It can miss a break or place a boundary a little early or late, so review each suggestion before you export.</p>
+          </div>
+
+          <div class="as-measured">
+            <h3>How fast it is</h3>
+            <table>
+              <tbody>
+                <tr><td>0.6 s</td><td>from opening a recording to working on it</td></tr>
+                <tr><td>1.7 s</td><td>for the full thumbnail strip</td></tr>
+                <tr><td>27 ms</td><td>for a typical scrub while thumbnails and the waveform load</td></tr>
+              </tbody>
+            </table>
+            <p>Measured with a 2.0 test build on one 110-minute, 8 GB recording stored on a home network share. The opening time is from a first open; the thumbnail and scrub times are from after the share had read the file once. Your times depend on your drive and network.</p>
+          </div>
+
+          <div class="as-also">
+            <h3>Also in 2.0</h3>
+            <ul>
+              <li><strong>Select many markers at once:</strong> all, red, or visible, then confirm, refine or delete them together.</li>
+              <li><strong>Move between markers</strong> with Alt+Left and Alt+Right. Shift+N goes to the previous unconfirmed split.</li>
+              <li><strong>Rename a section</strong> with F2. Press F1 for every shortcut.</li>
+              <li><strong>Start new recordings</strong> with imported markers, AdTrim's suggestions, or none, under Tools &gt; Ad break detection.</li>
+              <li><strong>Delete all markings</strong> (Ctrl+Del) replaces Clear all markings, and is now in the Edit menu too.</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="as-release as-here-marker" id="as-here" hidden>
+          <span class="as-marker" aria-hidden="true"></span>
+          <p class="as-version">the version you have now</p>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img class="brand-icon" src="/assets/icon-512.png" alt="" width="20" height="20" />
+        <span>AdTrim</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/adtrim/adtrim/releases" rel="noopener" target="_blank">All releases</a>
+        <a href="https://github.com/adtrim/adtrim/issues" rel="noopener" target="_blank">Report a problem</a>
+      </div>
+      <div class="footer-meta">Sample footage: Big Buck Bunny, © 2008 Blender Foundation, CC BY 3.0.</div>
+    </div>
+  </footer>
+</main>
+
+<script src="/whats-new.js"></script>
+</body>
+</html>
