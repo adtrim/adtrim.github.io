@@ -104,15 +104,15 @@ jobs:
           $feed = Get-Content updates.json -Raw | ConvertFrom-Json
           if ('v' + $feed.latestVersion -cne $env:VERSION) { throw 'Announcement version does not match the published release.' }
 
-      - name: Template version into index.html
+      - name: Template version into the pages
         env:
           VERSION: ${{ steps.version.outputs.version }}
         run: |
           CLEAN="${VERSION#v}"
-          echo "Templating v$CLEAN into index.html"
+          echo "Templating v$CLEAN into index.html and whats-new/index.html"
           # Narrow pattern: only matches v1.0.NNNN (4+ digit build number)
           # so unrelated 'v1' in copy can't be accidentally rewritten.
-          sed -i "s/v1\.0\.[0-9]\{4,\}/v$CLEAN/g" index.html
+          sed -i "s/v1\.0\.[0-9]\{4,\}/v$CLEAN/g" index.html whats-new/index.html
 
       - name: Build content-addressed assets
         run: python3 .github/scripts/build-site.py
