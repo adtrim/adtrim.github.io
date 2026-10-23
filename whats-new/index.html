@@ -57,6 +57,33 @@
         </li>
 
 
+        <li class="as-release" data-version="2.1.0">
+          <span class="as-marker" aria-hidden="true"></span>
+          <p class="as-version">2.1.0</p>
+          <h2>MP4 or TS, from recording to export</h2>
+          <p>Open MP4 and single-program TS recordings, edit them the same way, and export either format. Windows Explorer's Edit with AdTrim action now supports TS too.</p>
+          <figure class="as-shot">
+            <img src="/assets/screenshots/export-setup-ts.png" width="1440" height="900" loading="lazy"
+                 alt="AdTrim export setup with separate settings cards and a highlighted notice that TS exports omit chapter markers and names." />
+            <figcaption>MP4 exports include named chapters. TS exports contain the same kept video and audio without chapters. Your last format and sidecar-deletion choices are remembered.</figcaption>
+          </figure>
+          <div class="as-text">
+            <h3>Find recordings that still need exporting</h3>
+            <p>File &gt; View Unexported Files lets you browse a folder and open recordings that still need work. Successful exports are recorded in the existing project sidecar. MP4 recordings can also receive an export marker in Windows Comments; control that with File &gt; Add Comment to Source File on Export.</p>
+            <p>TS recordings are not modified. Deleting their project sidecar removes their export status.</p>
+          </div>
+          <div class="as-also">
+            <h3>More accurate previews and exports</h3>
+            <ul>
+              <li>Fixed TS seeking and the preceding-frame preview when clicking the timeline.</li>
+              <li>Fixed missing opening audio, delayed video at TS cuts, and accumulated timing errors across joins.</li>
+              <li>Improved MP4 chapter timing and TS audio timestamps at joins.</li>
+              <li>Existing source damage alone no longer blocks an otherwise possible export.</li>
+              <li>Export settings use separate cards in one column, with a prominent TS chapter notice and export actions that remain visible while settings scroll.</li>
+            </ul>
+          </div>
+        </li>
+
         <li class="as-release" data-version="2.0.0">
           <span class="as-marker" aria-hidden="true"></span>
           <p class="as-version">2.0.0 · Major release</p>
@@ -64,7 +91,7 @@
           <p>The timeline now shows what's in the recording, not just where your markers are. You can see the show, see where it goes quiet, and ask AdTrim to find the breaks.</p>
 
           <figure class="as-shot">
-            <img src="/assets/screenshots/timeline.png" width="2848" height="378" loading="lazy"
+            <img src="/assets/screenshots/timeline.png" width="2848" height="400" loading="lazy"
                  alt="The AdTrim 2.0 timeline: markers along the top, a strip of frames with named sections and three excluded scenes, and a waveform underneath with silences marked in amber." />
             <ul class="as-legend">
               <li><span>Markers</span> on top, as before</li>

@@ -76,8 +76,8 @@
         <div class="h-why-row">
           <p class="h-stat h-stat-accent"><span class="mono">0</span><span class="h-unit">bytes</span></p>
           <div>
-            <h3>Your recording is never changed</h3>
-            <p>Your markers live in a small <span class="mono">.adt.json</span> file next to the recording. Delete it and you're back where you started. Export writes a new MP4, checks it, and only then puts it in place. It never writes over your recording.</p>
+            <h3>Your original video and audio stay intact</h3>
+            <p>Your edits live in a small <span class="mono">.adt.json</span> file next to the recording. Export writes a separate MP4 or TS file. Video and audio in the original stay intact. MP4 sources can receive an optional export marker in Windows Comments; TS sources use the project sidecar only.</p>
           </div>
         </div>
       </div>
@@ -118,8 +118,8 @@
             <img src="assets/screenshots/walkthrough-export.png" width="1440" height="900" loading="lazy"
                  alt="AdTrim's export screen at 42 percent, with the source, excluded and final lengths, and four kept parts being encoded." />
             <div>
-              <p>AdTrim joins the parts you keep into one MP4, saved next to the recording with <span class="mono">[AdTrim]</span> added to its name.</p>
-              <p>Audio is copied from the recording, not re-encoded. Other recording windows stay usable while one exports.</p>
+              <p>AdTrim joins the parts you keep into one MP4 or TS file, saved next to the recording with <span class="mono">[AdTrim]</span> added to its name.</p>
+              <p>Audio is copied from the recording, not re-encoded. MP4 keeps chapter markers and names; TS exports omit chapters. Your last format choice is remembered. Other recording windows stay usable while one exports.</p>
             </div>
           </div>
         </li>
@@ -146,7 +146,7 @@
       <div class="h-feature-list">
         <div>
           <h3>Section names become chapters</h3>
-          <p>Name a section with <kbd>F2</kbd> and it becomes a chapter in the exported file, so you can jump to it in your player.</p>
+          <p>Name a section with <kbd>F2</kbd> and it becomes a chapter in the exported MP4, so you can jump to it in your player.</p>
         </div>
         <div>
           <h3>Uses your graphics card</h3>
