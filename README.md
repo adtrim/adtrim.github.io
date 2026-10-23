@@ -30,9 +30,9 @@ The version is resolved from one of three places, in this order:
   `https://api.github.com/repos/adtrim/adtrim/releases/latest` and
   templates that.
 
-The `v1.0.0000` strings in both pages are local-preview
+The `v0.0.0` strings in both pages are local-preview
 placeholders that should never reach the deployed site. If you ever
-see `v1.0.0000` on adtrim.github.io, the resolve step failed.
+see `v0.0.0` on adtrim.github.io, the resolve step failed.
 
 ## Layout
 
